@@ -4,16 +4,36 @@
   become: true
   tasks:
 
-  - name: update repository index
+  - name: update repository index UBUNTU
     apt:
       update_cache: yes
+    when: ansible_distribution == "Ubuntu"
 
-  - name: install apache2 package
+  - name: install apache2 package UBUNTU
     apt:
       name: apache2
       state: latest
+    when: ansible_distribution == "Ubuntu"
   
-  - name: install php support for apache
+  - name: install php support for apache UBUNTU
     apt:
       name: libapache2-mod-php
       state: latest
+    when: ansible_distribution == "Ubuntu"
+
+  - name: update repository index CENTOS
+    yum:
+      update_cache: yes
+    when: ansible_distribution == "CentOS"
+
+  - name: install apache2 package CENTOS
+    yum:
+      name: httpd
+      state: latest
+    when: ansible_distribution == "CentOS"
+  
+  - name: install php support for apache CENTOS
+    yum:
+      name: php
+      state: latest
+    when: ansible_distribution == "CentOS"
