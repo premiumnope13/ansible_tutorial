@@ -1,3 +1,3 @@
-one.ansible.com apache_package=apache2  php_package=libapache2-mod-php
-two.ansible.com apache_package=apache2  php_package=libapache2-mod-php
-three.ansible.com apache_package=httpd  php_package=php
+one.ansible.com
+two.ansible.com
+three.ansible.com
