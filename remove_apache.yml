@@ -4,36 +4,12 @@
   become: true
   tasks:
 
-  - name: update repository index UBUNTU
-    apt:
-      update_cache: yes
-    when: ansible_distribution == "Ubuntu"
 
-  - name: uninstall apache2 package UBUNTU
-    apt:
-      name: apache2
+  - name: uninstall apache and php
+    package:
+      name: 
+        - "{{ apache_package }}"
+        - "{{ php_package }}"
       state: absent
-    when: ansible_distribution == "Ubuntu"
   
-  - name: uninstall php support for apache UBUNTU
-    apt:
-      name: libapache2-mod-php
-      state: absent
-    when: ansible_distribution == "Ubuntu"
 
-  - name: update repository index CENTOS
-    yum:
-      update_cache: yes
-    when: ansible_distribution == "CentOS"
-
-  - name: uninstall apache2 package CENTOS
-    yum:
-      name: httpd
-      state: absent
-    when: ansible_distribution == "CentOS"
-  
-  - name: uninstall php support for apache CENTOS
-    yum:
-      name: php
-      state: absent
-    when: ansible_distribution == "CentOS"
