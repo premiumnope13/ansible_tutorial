@@ -1,3 +1,6 @@
+[webserver]
 one.ansible.com
+[database]
 two.ansible.com
+[fileserver]
 three.ansible.com
