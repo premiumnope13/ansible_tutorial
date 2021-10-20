@@ -1,5 +1,19 @@
 ---
+- hosts: all
+  become: true
+  pre_tasks:
 
+  - name: CHECK AND INSTALL UPDATE ON UBUNTU SERVERS
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
+  - name: CHECK AND INSTALL UPDATE ON CENTOS SERVERS
+    yum:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "CentOS"
 
 - hosts: webserver
   become: true
@@ -10,7 +24,9 @@
       name: 
         - apache2
         - libapache2-mod-php
-      state: absent
+      state: latest
+      update-cache: yes
+    when: ansible_distribution == "Ubuntu"
   
 - hosts: database
   become: true
@@ -20,7 +36,9 @@
     package:
       name:
         - mariadb-server
-      state: absent
+      state: latest
+      update-cache: yes
+    when: ansible_distribution == "Ubuntu"
 
 - hosts: fileserver
   become: true
@@ -30,5 +48,5 @@
     package:
       name:
         - samba
-      state: absent
+      state: latest
   
