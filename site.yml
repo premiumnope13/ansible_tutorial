@@ -29,7 +29,16 @@
       state: latest
       update-cache: yes
     when: ansible_distribution == "Ubuntu"
-  
+
+  - name: COPY SIMPLE HTML FILE TO WEBSERVER INDEX DIRECTORY
+    tags: apache, apache2,httpd
+    copy:
+      src: default_site.html
+      dest: /var/www/html/test.html
+      owner: root
+      group: root
+      mode: 0644  
+
 - hosts: database
   become: true
   tags: database
