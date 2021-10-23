@@ -1,6 +1,7 @@
 ---
 - hosts: all
   become: true
+  tags: always
   pre_tasks:
 
   - name: CHECK AND INSTALL UPDATE ON UBUNTU SERVERS
@@ -17,6 +18,7 @@
 
 - hosts: webserver
   become: true
+  tags: webserver
   tasks:
 
   - name: INSTALL APACHE AND PHP FOR WEBSERVER
@@ -30,6 +32,7 @@
   
 - hosts: database
   become: true
+  tags: database
   tasks:
 
   - name: ISNTALL MARIADB FOR DATABASE SERVER
@@ -42,6 +45,7 @@
 
 - hosts: fileserver
   become: true
+  tags: fileserver
   tasks:
 
   - name: ISNTALL SAMBA FOR FILESERVER SERVER
