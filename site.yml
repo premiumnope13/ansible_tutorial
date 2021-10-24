@@ -16,6 +16,32 @@
       update_cache: yes
     when: ansible_distribution == "CentOS"
 
+#  - name: CREATE DIRECTORY FOR FILES 
+#    file:
+#      path: /home/aulian/sources
+#      state: directory
+#     
+#  - name: COPY IPERF TO REMOTE SERVER
+#    copy:
+#      src: iperf_2.0.5+dfsg1-2_amd64.deb
+#      src: iperf-2.0.5-13.fc21.x86_64.rpm
+#      dest: /home/aulian/sources
+#      owner: root
+#      group: root
+#      mode: 0644  
+
+  - name: INSTALL IPERF ON REMOTE SERVER (Ubuntu)
+    apt:
+      deb: /home/aulian/sources/iperf_2.0.5+dfsg1-2_amd64.deb
+    when: (ansible_distribution == "Ubuntu")
+
+  - name: INSTALL IPERF ON REMOTE SERVER (CENTOS)
+    yum:
+      name: /home/aulian/sources/iperf-2.0.5-13.fc21.x86_64.rpm
+      disable_gpg_check: yes
+      state: present
+    when: ansible_distribution == "CentOS"
+
 - hosts: workstation
   become: true
   tasks:
@@ -24,14 +50,14 @@
       package:
         name: unzip
 
-    - name: INSTALL TERRAFORM
-      unarchive:
-        src: https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_linux_amd64.zip
-        dest: /usr/local/bin
-        remote_src: yes
-        mode: 0755
-        owner: root
-        group: root
+#    - name: INSTALL TERRAFORM
+#      unarchive:
+#        src: https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_linux_amd64.zip
+#        dest: /usr/local/bin
+#        remote_src: yes
+#        mode: 0755
+#        owner: root
+#        group: root
 
 - hosts: webserver
   become: true
