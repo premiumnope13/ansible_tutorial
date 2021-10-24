@@ -16,6 +16,23 @@
       update_cache: yes
     when: ansible_distribution == "CentOS"
 
+- hosts: workstation
+  become: true
+  tasks:
+
+    - name: ISNTALL UNZIP 
+      package:
+        name: unzip
+
+    - name: INSTALL TERRAFORM
+      unarchive:
+        src: https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_linux_amd64.zip
+        dest: /usr/local/bin
+        remote_src: yes
+        mode: 0755
+        owner: root
+        group: root
+
 - hosts: webserver
   become: true
   tags: webserver
