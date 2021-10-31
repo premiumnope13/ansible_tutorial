@@ -1,34 +1,45 @@
 ---
 
 
-- hosts: webserver
+- hosts: all
   become: true
   tasks:
 
-  - name: INSTALL APACHE AND PHP FOR WEBSERVER
+  - name: UN-INSTALL IPERF 2 ON ALL HOSTS
     apt:
       name: 
-        - apache2
-        - libapache2-mod-php
+        - iperf
       state: absent
-  
+    tags: iperf
+    when: (ansible_distribution == "Ubuntu")
+ 
+  - name: UN-INSTALL IPERF 2 ON ALL HOSTS
+    yum:
+      name:
+        - iperf
+      state: absent
+    tags: iperf
+    when: (ansible_distribution == "CentOS")
+
 - hosts: database
   become: true
   tasks:
 
-  - name: ISNTALL MARIADB FOR DATABASE SERVER
+  - name: UN-ISNTALL MARIADB FOR DATABASE SERVER
     package:
       name:
         - mariadb-server
       state: absent
+    tags: database
 
 - hosts: fileserver
   become: true
   tasks:
 
-  - name: ISNTALL SAMBA FOR FILESERVER SERVER
+  - name: UN-ISNTALL SAMBA FOR FILESERVER SERVER
     package:
       name:
         - samba
       state: absent
+    tags: fileserver
   
