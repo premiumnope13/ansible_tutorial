@@ -2,7 +2,7 @@
 one.ansible.com
 [database]
 two.ansible.com
-[fileserver]
-three.ansible.com
 [workstation]
+three.ansible.com
+[fileserver]
 four.ansible.com
