@@ -68,6 +68,7 @@
       dest: /etc/sudoers.d/simone
       owner: root
       group: root
+      mode: 0440
 
 - hosts: workstation
   become: true
