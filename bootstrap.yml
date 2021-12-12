@@ -33,7 +33,7 @@
     tags: always
     authorized_key:
       user: simone
-      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMrmbOqlPrzpb6QwqzKbPU3PxaJa7yAqI61rJivu7Cht ansible"
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEIljwvJa0bov+nBBfWI2R8exht54TXvhQx5SbynXpJU ansible"
 
   - name: ADD SUDOERS FILE FOR SIMONE
     copy:
