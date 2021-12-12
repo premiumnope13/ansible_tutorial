@@ -17,46 +17,13 @@
       update_cache: yes
     when: ansible_distribution == "CentOS"
 
+#- hosts: workstation
+#  become: true
+#  tasks:
 
-    
-- hosts: all
-  become: true
-  tasks:
-
-
-  - name: COPY IPERF TO REMOTE SERVER
-    tags: iperf
-    copy:
-      src: iperf_2.0.5+dfsg1-2_amd64.deb
-      dest: /home/aulian/sources
-      owner: root
-      group: root
-      mode: 0644  
-
-  - name: INSTALL IPERF ON REMOTE SERVER (Ubuntu)
-    tags: iperf
-    apt:
-      deb: /home/aulian/sources/iperf_2.0.5+dfsg1-2_amd64.deb
-      force: yes
-    when: (ansible_distribution == "Ubuntu")
-
-  - name: INSTALL IPERF ON REMOTE SERVER (CENTOS)
-    tags: iperf
-    yum:
-      name: /home/aulian/sources/iperf-2.0.5-13.fc21.x86_64.rpm
-      disable_gpg_check: yes
-      state: present
-    when: ansible_distribution == "CentOS"
-
-
-
-- hosts: workstation
-  become: true
-  tasks:
-
-    - name: ISNTALL UNZIP 
-      package:
-        name: unzip
+#    - name: ISNTALL UNZIP 
+#      package:
+#        name: unzip
 
 #    - name: INSTALL TERRAFORM
 #      unarchive:
@@ -67,57 +34,23 @@
 #        owner: root
 #        group: root
 
+    
+- hosts: all
+  become: true
+  roles:
+    - base
+
 - hosts: webserver
   become: true
-  tags: webserver
-  tasks:
-
-  - name: INSTALL APACHE AND PHP FOR WEBSERVER
-    tags: webserver
-    apt:
-      name: 
-        - apache2
-        - libapache2-mod-php
-      state: latest
-      update-cache: yes
-    when: ansible_distribution == "Ubuntu"
-
-  - name: COPY SIMPLE HTML FILE TO WEBSERVER INDEX DIRECTORY
-    tags: apache, apache2,httpd
-    copy:
-      src: default_site.html
-      dest: /var/www/html/test.html
-      owner: root
-      group: root
-      mode: 0644  
-
-  - name: START APACHE2 SERVICE ON UBUNTU
-    tags: apache, apache2
-    service:
-      name: apache2
-      state: started
-    when: ansible_distribution == "Ubuntu"
+  roles:
+    - web_servers
 
 - hosts: database
   become: true
-  tags: database
-  tasks:
-
-  - name: ISNTALL MARIADB FOR DATABASE SERVER
-    package:
-      name:
-        - mariadb-server
-      state: latest
-      update-cache: yes
-    when: ansible_distribution == "Ubuntu"
+  roles:
+    - db_servers
 
 - hosts: fileserver
   become: true
-  tags: fileserver
-  tasks:
-
-  - name: ISNTALL SAMBA FOR FILESERVER SERVER
-    package:
-      name:
-        - samba
-      state: latest
+  roles:
+    - file_servers
