@@ -1,0 +1,8 @@
+
+  - name: ISNTALL MARIADB FOR DATABASE SERVER
+    package:
+      name:
+        - mariadb-server
+      state: latest
+      update-cache: yes
+    when: ansible_distribution == "Ubuntu"

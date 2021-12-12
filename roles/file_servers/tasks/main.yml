@@ -1,0 +1,6 @@
+
+  - name: ISNTALL SAMBA FOR FILESERVER SERVER
+    package:
+      name:
+        - samba
+      state: latest
