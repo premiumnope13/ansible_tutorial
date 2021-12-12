@@ -1,0 +1,31 @@
+- hosts: all
+  become: true
+  pre_tasks:
+
+
+  - name: CREATE SIMONE USER
+    tags: always
+    user:
+      name: simone
+      groups: root
+
+  - name: ADD SSH KEY FOR SIMONE
+    tags: always
+    authorized_key:
+      user: simone
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEIljwvJa0bov+nBBfWI2R8exht54TXvhQx5SbynXpJU ansible"
+
+  - name: ADD SUDOERS FILE FOR SIMONE
+    tags: always
+    copy:
+      src: sudoer_simone
+      dest: /etc/sudoers.d/simone
+      owner: root
+      group: root
+      mode: 0440
+
+  - name: CREATE DIRECTORY FOR FILES
+    tags: always
+    file:
+      path: /home/aulian/sources
+      state: directory
